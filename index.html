@@ -349,7 +349,6 @@
     <div>
       <label for="imageUpload">Загрузить изображение:</label>
       <input type="file" id="imageUpload" accept="image/*">
-      <button onclick="toggleAnalysis()">Вкл/Выкл анализ</button>
     </div>
     <button id="openPresetModalButton">Меню пресетов</button>
     <div id="metrics">SSIM: -, PSNR: -, RMSE: -, MAE: -, Entropy: -</div>
@@ -1159,10 +1158,8 @@
 
       // Обновляем список пресетов
       updatePresetList();
-
     }
-  
-
+    
     // Инициализация
     updateLayerUI();
   </script>
