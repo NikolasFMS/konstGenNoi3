@@ -757,7 +757,11 @@
 
       try {
         while (attempts < maxAttempts) {
-          if (progressDiv) progressDiv.textContent = `Итерация: ${attempts + 1}`;
+          if (progressDiv) {
+            progressDiv.textContent = `Итерация: ${attempts + 1} из ${maxAttempts}`;
+            progress.style.display = 'block';
+            progress.textContent = `Обработка: ${Math.round((attempts + 1) / maxAttempts * 100)}%`;
+          }
 
           // Создаём копию originalImageData для каждой итерации
           finalImageData = new ImageData(new Uint8ClampedArray(originalImageData.data), width, height);
@@ -828,6 +832,8 @@
         metricsDiv.textContent = `SSIM: ${metrics.ssim.toFixed(2)}%, NCC: ${metrics.ncc.toFixed(2)}%, PSNR: ${metrics.psnr.toFixed(2)} dB, RMSE: ${metrics.rmse.toFixed(2)}, MAE: ${metrics.mae.toFixed(2)}, AE: ${metrics.ae.toFixed(2)}, Entropy: ${metrics.entropy.toFixed(2)}`;
         updateRecommendations(metrics, attempts);
         if (progressDiv) progressDiv.textContent = `Готово: ${attempts} итераций`;
+        progress.style.display = 'none';
+
         saveToHistory();
       } catch (error) {
         console.error('Ошибка в generateNoise:', error);
@@ -1093,7 +1099,6 @@
       return masks;
     }
 
-
     // обработка загрузки изображения
     document.getElementById('imageUpload').addEventListener('change', async (event) => {
       const file = event.target.files[0];
@@ -1158,8 +1163,9 @@
 
       // Обновляем список пресетов
       updatePresetList();
+
     }
-    
+
     // Инициализация
     updateLayerUI();
   </script>
